@@ -1,0 +1,10 @@
+DOCUMENTO SINTETICO PARA PRUEBAS
+TITULO: Alquiler de equipos
+REFERENCIA: FAC-DEMO-008
+CATEGORIA: FACTURA
+FECHA_DOCUMENTO: 2026-08-08
+ORGANIZACION: Distribuciones Horizonte de Prueba
+ESTADO_INICIAL: ACTIVO
+DESCRIPCION: Archivo ficticio numero 8 para validar carga, metadatos, busqueda, filtros y descarga.
+CONTENIDO: La informacion de este documento fue creada exclusivamente para una practica universitaria de gestion documental.
+PRIVACIDAD: No contiene datos personales, firmas, cuentas, identificaciones ni transacciones reales.

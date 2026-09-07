@@ -1,0 +1,10 @@
+DOCUMENTO SINTETICO PARA PRUEBAS
+TITULO: Insumos de aseo
+REFERENCIA: FAC-DEMO-004
+CATEGORIA: FACTURA
+FECHA_DOCUMENTO: 2026-04-04
+ORGANIZACION: Distribuciones Horizonte de Prueba
+ESTADO_INICIAL: ACTIVO
+DESCRIPCION: Archivo ficticio numero 4 para validar carga, metadatos, busqueda, filtros y descarga.
+CONTENIDO: La informacion de este documento fue creada exclusivamente para una practica universitaria de gestion documental.
+PRIVACIDAD: No contiene datos personales, firmas, cuentas, identificaciones ni transacciones reales.

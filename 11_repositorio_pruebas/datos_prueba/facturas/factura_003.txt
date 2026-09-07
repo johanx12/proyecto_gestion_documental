@@ -1,0 +1,10 @@
+DOCUMENTO SINTETICO PARA PRUEBAS
+TITULO: Suscripción de software
+REFERENCIA: FAC-DEMO-003
+CATEGORIA: FACTURA
+FECHA_DOCUMENTO: 2026-03-03
+ORGANIZACION: Distribuciones Horizonte de Prueba
+ESTADO_INICIAL: ACTIVO
+DESCRIPCION: Archivo ficticio numero 3 para validar carga, metadatos, busqueda, filtros y descarga.
+CONTENIDO: La informacion de este documento fue creada exclusivamente para una practica universitaria de gestion documental.
+PRIVACIDAD: No contiene datos personales, firmas, cuentas, identificaciones ni transacciones reales.
