@@ -1,0 +1,3 @@
+{% extends 'base.html' %}{% block title %}{{ 'Editar' if repositorio else 'Nuevo' }} repositorio{% endblock %}
+{% block content %}<section class="panel form-card"><h1>{{ 'Editar' if repositorio else 'Nuevo' }} repositorio</h1><form method="post"><label>Nombre<input name="nombre" required value="{{ repositorio['nombre'] if repositorio else '' }}"></label><label>Descripción<textarea name="descripcion" rows="4">{{ repositorio['descripcion'] if repositorio else '' }}</textarea></label><button class="primary">Guardar</button> <a class="button" href="{{ url_for('repositorios') }}">Cancelar</a></form></section>{% endblock %}
+

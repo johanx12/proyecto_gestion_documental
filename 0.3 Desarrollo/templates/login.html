@@ -1,0 +1,3 @@
+{% extends 'base.html' %}{% block title %}Ingresar · Portal{% endblock %}
+{% block content %}<section class="auth-card"><h1>Ingresar</h1><p>Accede al repositorio documental.</p><form method="post"><label>Correo<input name="correo" type="email" required autofocus></label><label>Contraseña<input name="clave" type="password" required></label><button class="primary">Ingresar</button></form><p>¿Primera vez? <a href="{{ url_for('registro') }}">Crear cuenta</a></p></section>{% endblock %}
+

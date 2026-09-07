@@ -1,0 +1,3 @@
+{% extends 'base.html' %}{% block title %}IA pendiente · Portal{% endblock %}
+{% block content %}<section class="panel"><p class="eyebrow">Punto de extensión</p><h1>Funciones inteligentes pendientes</h1><p>Esta versión no realiza llamadas a modelos ni servicios externos. El módulo queda reservado para una futura mejora.</p><div class="status-list">{% for nombre, valor in estado.items() %}<div><strong>{{ nombre|capitalize }}</strong><span class="tag muted-tag">{{ valor }}</span></div>{% endfor %}</div></section>{% endblock %}
+
