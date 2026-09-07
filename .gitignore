@@ -1,0 +1,10 @@
+.env.local
+.venv/
+__pycache__/
+instance/
+storage/
+*.pyc
+*.db
+*.sqlite3
+backups/
+test-results/
