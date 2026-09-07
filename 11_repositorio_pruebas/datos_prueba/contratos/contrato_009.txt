@@ -1,0 +1,10 @@
+DOCUMENTO SINTETICO PARA PRUEBAS
+TITULO: Servicios de impresión
+REFERENCIA: CTR-DEMO-009
+CATEGORIA: CONTRATO
+FECHA_DOCUMENTO: 2026-09-09
+ORGANIZACION: Servicios Andinos Demo S.A.S.
+ESTADO_INICIAL: ACTIVO
+DESCRIPCION: Archivo ficticio numero 9 para validar carga, metadatos, busqueda, filtros y descarga.
+CONTENIDO: La informacion de este documento fue creada exclusivamente para una practica universitaria de gestion documental.
+PRIVACIDAD: No contiene datos personales, firmas, cuentas, identificaciones ni transacciones reales.
