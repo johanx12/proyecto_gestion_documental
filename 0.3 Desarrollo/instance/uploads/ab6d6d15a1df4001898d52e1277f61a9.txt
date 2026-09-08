@@ -1,0 +1,15 @@
+FACTURA ELECTRONICA DE VENTA No. FE-2601
+
+EMISOR: Servicios Andinos Demo S.A.S. - NIT 900.111.222-3 - Bucaramanga, Santander.
+CLIENTE: Distribuidora Girón Demo S.A.S. - NIT 900.121.232-1.
+FECHA DE EMISION: 01 de marzo de 2026.
+FORMA DE PAGO: Credito a 30 dias.
+
+DETALLE:
+  1 x Licencia anual de software de gestión - valor unitario COP 4.200.000
+
+SUBTOTAL: COP 4.200.000
+IVA (19%): COP 798.000
+TOTAL A PAGAR: COP 4.998.000
+
+Documento ficticio elaborado para la práctica académica de gestión documental. No contiene datos personales ni información real.

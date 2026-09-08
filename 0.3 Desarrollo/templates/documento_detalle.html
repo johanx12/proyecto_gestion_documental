@@ -1,0 +1,74 @@
+{% extends 'base.html' %}{% block title %}{{ documento['titulo'] }} · Portal{% endblock %}
+{% block content %}
+<div class="page-head">
+  <div>
+    <p class="eyebrow">Documento · {{ documento['repositorio_nombre'] }}</p>
+    <h1>{{ documento['titulo'] }}</h1>
+    <p class="muted">
+      {{ documento['nombre_original'] }} · {{ documento['tamano_bytes']|filesizeformat }} ·
+      cargado el {{ documento['creado_en'] }}
+    </p>
+  </div>
+  <div>
+    <a class="button" href="{{ url_for('descargar_documento', documento_id=documento['id']) }}">Descargar</a>
+    <a class="button" href="{{ url_for('editar_documento', documento_id=documento['id']) }}">Editar</a>
+    <form method="post" action="{{ url_for('reprocesar_documento', documento_id=documento['id']) }}" class="inline">
+      <button class="primary">Reprocesar con IA</button>
+    </form>
+  </div>
+</div>
+
+<div class="cards">
+  <article>
+    <strong class="estado {{ documento['estado_procesamiento']|lower }}">{{ documento['estado_procesamiento'] }}</strong>
+    <span>Estado de procesamiento</span>
+  </article>
+  <article><strong>{{ documento['categoria'] }}</strong><span>Categoría asignada por IA</span></article>
+  <article><strong>{{ fragmentos }}</strong><span>Fragmentos indexados</span></article>
+</div>
+
+{% if documento['error_procesamiento'] %}
+<div class="alert danger">Detalle del error: {{ documento['error_procesamiento'] }}</div>
+{% endif %}
+
+<div class="grid-two">
+  <section class="panel">
+    <h2>Resumen automático</h2>
+    {% if documento['resumen'] %}
+      <p>{{ documento['resumen'] }}</p>
+      {% if documento['palabras_clave'] %}
+        <p class="muted">Palabras clave: {{ documento['palabras_clave'] }}</p>
+      {% endif %}
+      <p class="muted">Modelo: {{ documento['modelo_ia'] }} · {{ documento['procesado_en'] }}</p>
+    {% else %}
+      <p>Este documento aún no tiene resumen. Usa el botón "Reprocesar con IA".</p>
+    {% endif %}
+  </section>
+
+  <section class="panel">
+    <h2>Información extraída</h2>
+    {% if datos %}
+      <table class="datos">
+        <tbody>
+        {% for dato in datos %}
+          <tr><th>{{ dato['campo'] }}</th><td>{{ dato['valor'] }}</td></tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <p>Sin datos extraídos todavía.</p>
+    {% endif %}
+  </section>
+</div>
+
+<section class="panel">
+  <h2>Texto extraído del archivo</h2>
+  {% if documento['contenido_extraido'] %}
+    <pre class="contenido">{{ documento['contenido_extraido'][:3000] }}{% if documento['contenido_extraido']|length > 3000 %}
+[...]{% endif %}</pre>
+  {% else %}
+    <p>No se pudo extraer texto de este archivo.</p>
+  {% endif %}
+  <p><a href="{{ url_for('detalle_repositorio', repositorio_id=documento['repositorio_id']) }}">Volver al repositorio</a></p>
+</section>
+{% endblock %}

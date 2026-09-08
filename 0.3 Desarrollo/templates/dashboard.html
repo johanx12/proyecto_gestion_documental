@@ -1,2 +1,76 @@
 {% extends 'base.html' %}{% block title %}Panel · Portal{% endblock %}
-{% block content %}<div class="page-head"><div><p class="eyebrow">Resumen del repositorio</p><h1>Hola, {{ g.usuario['nombre'] }}</h1></div><a class="primary button" href="{{ url_for('nuevo_repositorio') }}">Nuevo repositorio</a></div><div class="cards"><article><strong>{{ metricas['repositorios'] }}</strong><span>Repositorios</span></article><article><strong>{{ metricas['documentos'] }}</strong><span>Documentos</span></article><article><strong>{{ metricas['bytes_usados']|filesizeformat }}</strong><span>Almacenamiento</span></article></div><div class="grid-two"><section class="panel"><h2>Documentos recientes</h2>{% if recientes %}<ul class="items">{% for d in recientes %}<li><a href="{{ url_for('detalle_repositorio', repositorio_id=d['repositorio_id']) }}">{{ d['titulo'] }}</a><small>{{ d['categoria'] }} · {{ d['repositorio_nombre'] }}</small></li>{% endfor %}</ul>{% else %}<p>Aún no hay documentos.</p>{% endif %}</section><section class="panel"><h2>Actividad</h2>{% if actividad %}<ul class="items">{% for a in actividad %}<li><strong>{{ a['accion'] }}</strong><small>{{ a['detalle'] }} · {{ a['creado_en'] }}</small></li>{% endfor %}</ul>{% else %}<p>Sin actividad registrada.</p>{% endif %}</section></div>{% endblock %}
+{% block content %}
+<div class="page-head">
+  <div>
+    <p class="eyebrow">Indicadores del repositorio</p>
+    <h1>Hola, {{ g.usuario['nombre'] }}</h1>
+  </div>
+  <a class="primary button" href="{{ url_for('nuevo_repositorio') }}">Nuevo repositorio</a>
+</div>
+
+<div class="cards">
+  <article><strong>{{ metricas['repositorios'] }}</strong><span>Repositorios</span></article>
+  <article><strong>{{ metricas['documentos'] }}</strong><span>Documentos</span></article>
+  <article><strong>{{ metricas['bytes_usados']|filesizeformat }}</strong><span>Almacenamiento</span></article>
+  <article><strong>{{ consultas }}</strong><span>Consultas a la IA</span></article>
+</div>
+
+<div class="cards">
+  <article><strong class="estado procesado">{{ metricas['procesados'] or 0 }}</strong><span>Procesados por IA</span></article>
+  <article><strong class="estado pendiente">{{ metricas['pendientes'] or 0 }}</strong><span>Pendientes</span></article>
+  <article><strong class="estado error">{{ metricas['con_error'] or 0 }}</strong><span>Con error</span></article>
+</div>
+
+<div class="grid-two">
+  <section class="panel">
+    <h2>Documentos por categoría</h2>
+    {% if por_categoria %}
+      <ul class="items">
+        {% for c in por_categoria %}
+        <li><strong>{{ c['categoria'] }}</strong><small>{{ c['total'] }} documento(s)</small></li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>Aún no hay documentos clasificados.</p>
+    {% endif %}
+    <p class="muted">
+      Clasificación automática con {{ estado_ia['modelo_texto'] }} · {{ estado_ia['estado'] }}
+    </p>
+  </section>
+
+  <section class="panel">
+    <h2>Documentos recientes</h2>
+    {% if recientes %}
+      <ul class="items">
+        {% for d in recientes %}
+        <li>
+          <a href="{{ url_for('detalle_documento', documento_id=d['id']) }}">{{ d['titulo'] }}</a>
+          <small>
+            <span class="tag">{{ d['categoria'] }}</span> · {{ d['repositorio_nombre'] }} ·
+            <span class="estado {{ d['estado_procesamiento']|lower }}">{{ d['estado_procesamiento'] }}</span>
+          </small>
+        </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>Aún no hay documentos.</p>
+    {% endif %}
+  </section>
+</div>
+
+<section class="panel">
+  <h2>Registro de actividad y errores</h2>
+  {% if actividad %}
+    <ul class="items">
+      {% for a in actividad %}
+      <li>
+        <strong class="{% if a['nivel'] == 'ERROR' %}danger-text{% endif %}">{{ a['accion'] }}</strong>
+        <small>{{ a['detalle'] }} · {{ a['creado_en'] }}</small>
+      </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>Sin actividad registrada.</p>
+  {% endif %}
+</section>
+{% endblock %}

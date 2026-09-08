@@ -1,0 +1,15 @@
+FACTURA ELECTRONICA DE VENTA No. FE-2610
+
+EMISOR: Servicios Andinos Demo S.A.S. - NIT 900.111.222-3 - Bucaramanga, Santander.
+CLIENTE: Logística Zapatoca Demo - NIT 901.909.010-0.
+FECHA DE EMISION: 10 de marzo de 2026.
+FORMA DE PAGO: Credito a 45 dias.
+
+DETALLE:
+  1 x Póliza de soporte extendido - valor unitario COP 7.300.000
+
+SUBTOTAL: COP 7.300.000
+IVA (19%): COP 1.387.000
+TOTAL A PAGAR: COP 8.687.000
+
+Documento ficticio elaborado para la práctica académica de gestión documental. No contiene datos personales ni información real.

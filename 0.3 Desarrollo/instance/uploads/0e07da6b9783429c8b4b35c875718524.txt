@@ -1,0 +1,15 @@
+FACTURA ELECTRONICA DE VENTA No. FE-2607
+
+EMISOR: Servicios Andinos Demo S.A.S. - NIT 900.111.222-3 - Bucaramanga, Santander.
+CLIENTE: Hotelera Málaga Demo - NIT 900.343.454-7.
+FECHA DE EMISION: 07 de marzo de 2026.
+FORMA DE PAGO: Credito a 30 dias.
+
+DETALLE:
+  2 x Impresora multifuncional láser - valor unitario COP 2.790.000
+
+SUBTOTAL: COP 5.580.000
+IVA (19%): COP 1.060.200
+TOTAL A PAGAR: COP 6.640.200
+
+Documento ficticio elaborado para la práctica académica de gestión documental. No contiene datos personales ni información real.

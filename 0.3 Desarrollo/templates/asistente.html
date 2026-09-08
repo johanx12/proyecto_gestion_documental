@@ -1,0 +1,105 @@
+{% extends 'base.html' %}{% block title %}Asistente IA · Portal{% endblock %}
+{% block content %}
+<div class="page-head">
+  <div>
+    <p class="eyebrow">Consulta en lenguaje natural</p>
+    <h1>Asistente documental</h1>
+    <p class="muted">
+      Sube los documentos que quieras y pregúntale a la IA sobre ellos. El
+      sistema busca los fragmentos más parecidos a tu pregunta (RAG) y responde
+      solo con lo que dicen tus documentos.
+    </p>
+  </div>
+</div>
+
+<section class="panel">
+  <h2>Agregar documentos a la base de conocimiento</h2>
+  <form method="post" enctype="multipart/form-data"
+        action="{{ url_for('subir_desde_asistente') }}" class="upload-form">
+    <label>
+      Archivos (puedes seleccionar varios a la vez)
+      <input type="file" name="archivo" accept="{{ acepta }}" multiple required>
+    </label>
+    <label>
+      Guardar en
+      <select name="repositorio_id">
+        <option value="">Repositorio del asistente (se crea solo)</option>
+        {% for r in repositorios %}
+        <option value="{{ r['id'] }}">{{ r['nombre'] }} ({{ r['total_documentos'] }})</option>
+        {% endfor %}
+      </select>
+    </label>
+    <button class="primary">Cargar y analizar</button>
+  </form>
+  <p class="muted">
+    Formatos admitidos: PDF, Word (DOC y DOCX), Excel (XLSX), PowerPoint (PPTX),
+    OpenDocument (ODT), RTF, HTML, TXT, MD, CSV, JSON, XML e imágenes
+    (PNG, JPG, WEBP). Los PDF escaneados y las imágenes se transcriben con OCR.
+    No hay límite en la cantidad de archivos; con varios, el análisis avanza en
+    segundo plano.
+  </p>
+
+  <div class="estado-cola">
+    <span><strong>{{ indexados }}</strong> documento(s) listos para consultar</span>
+    {% if pendientes %}
+    <span class="estado pendiente"><strong>{{ pendientes }}</strong> en cola de análisis</span>
+    <form method="post" action="{{ url_for('procesar_pendientes') }}" class="inline">
+      <button>Reanudar análisis</button>
+    </form>
+    {% endif %}
+  </div>
+</section>
+
+<section class="panel">
+  <h2>Preguntar</h2>
+  <form method="post" class="search">
+    <input name="pregunta" value="{{ pregunta }}" placeholder="¿Cuál es el valor total del contrato de mantenimiento?" autofocus>
+    <button class="primary">Preguntar</button>
+  </form>
+  <p class="muted">
+    {{ estado['proveedor'] }} · modelo {{ estado['modelo_texto'] }} · {{ estado['estado'] }}
+  </p>
+
+  {% if error %}<div class="alert danger">{{ error }}</div>{% endif %}
+
+  {% if respuesta %}
+    <div class="respuesta">
+      <h2>Respuesta</h2>
+      <p>{{ respuesta }}</p>
+    </div>
+    <h3>Fragmentos utilizados</h3>
+    <ul class="search-results">
+      {% for f in fuentes %}
+      <li>
+        <a href="{{ url_for('detalle_documento', documento_id=f['documento_id']) }}">{{ f['titulo'] }}</a>
+        <span>similitud {{ (f['similitud'] * 100)|round(1) }}%</span>
+        <small>{{ f['texto'][:240] }}...</small>
+      </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+</section>
+
+{% if historial %}
+<section class="panel">
+  <h2>Últimas consultas</h2>
+  <ul class="items">
+    {% for c in historial %}
+    <li>
+      <strong>{{ c['pregunta'] }}</strong>
+      <small>{{ c['respuesta'][:200] }}</small>
+      <small class="muted">Fuentes: {{ c['fuentes'] }} · {{ c['creado_en'] }}</small>
+    </li>
+    {% endfor %}
+  </ul>
+</section>
+{% endif %}
+
+{% if pendientes %}
+<script>
+  // Mientras haya documentos en cola, la página se refresca sola para mostrar
+  // cómo van pasando a Procesado.
+  setTimeout(function () { window.location.reload(); }, 15000);
+</script>
+{% endif %}
+{% endblock %}

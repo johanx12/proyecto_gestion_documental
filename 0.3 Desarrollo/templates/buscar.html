@@ -1,3 +1,40 @@
 {% extends 'base.html' %}{% block title %}Buscar · Portal{% endblock %}
-{% block content %}<section class="panel"><h1>Buscar documentos</h1><form method="get" class="search"><input name="q" value="{{ termino }}" placeholder="Título, archivo, categoría o descripción"><button class="primary">Buscar</button></form>{% if termino %}<p class="muted">{{ resultados|length }} resultado(s) para “{{ termino }}”.</p>{% if resultados %}<ul class="search-results">{% for d in resultados %}<li><a href="{{ url_for('detalle_repositorio', repositorio_id=d['repositorio_id']) }}">{{ d['titulo'] }}</a><span>{{ d['categoria'] }} · {{ d['nombre_original'] }} · {{ d['repositorio_nombre'] }}</span><small>{{ d['descripcion'] }}</small></li>{% endfor %}</ul>{% else %}<p>No se encontraron coincidencias.</p>{% endif %}{% endif %}</section>{% endblock %}
+{% block content %}
+<section class="panel">
+  <h1>Buscar en los documentos</h1>
+  <form method="get" class="search">
+    <input name="q" value="{{ termino }}" placeholder="Escribe una palabra o una idea" autofocus>
+    <select name="modo">
+      <option value="texto" {% if modo == 'texto' %}selected{% endif %}>Texto exacto (contenido y metadatos)</option>
+      <option value="semantica" {% if modo == 'semantica' %}selected{% endif %}>Semántica (por significado)</option>
+    </select>
+    <button class="primary">Buscar</button>
+  </form>
+  <p class="muted">
+    La búsqueda de texto recorre el contenido extraído de cada archivo.
+    La búsqueda semántica compara el significado usando los vectores de Gemini.
+  </p>
 
+  {% if error %}<div class="alert danger">{{ error }}</div>{% endif %}
+
+  {% if termino and not error %}
+    <p class="muted">{{ resultados|length }} resultado(s) para "{{ termino }}".</p>
+    {% if resultados %}
+      <ul class="search-results">
+        {% for d in resultados %}
+        <li>
+          <a href="{{ url_for('detalle_documento', documento_id=d['id']) }}">{{ d['titulo'] }}</a>
+          <span>
+            <span class="tag">{{ d['categoria'] }}</span> · {{ d['repositorio_nombre'] }}
+            {% if d['similitud'] is not none %}· similitud {{ d['similitud'] }}%{% endif %}
+          </span>
+          <small>{{ d['extracto'] }}</small>
+        </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>No se encontraron coincidencias.</p>
+    {% endif %}
+  {% endif %}
+</section>
+{% endblock %}
